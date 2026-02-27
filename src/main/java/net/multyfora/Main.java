@@ -1,5 +1,7 @@
 package net.multyfora;
 
+import net.multyfora.exampleStuff.HelloFX;
+
 import java.util.Scanner;
 
 import static net.multyfora.util.RunCommand.runCustomCommand;
@@ -7,10 +9,11 @@ import static net.multyfora.util.RunCommand.runCustomCommand;
 public class Main {
     public static void main(String[] args) {
 
-
+        HelloFX.main(args);
 //        LocalWallpapers.listAll();
-        startApp();
+//        startApp();
     }
+
 
 
     private static void startApp() {

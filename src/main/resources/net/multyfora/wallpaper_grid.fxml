@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="net.multyfora.exampleStuff.WallpaperGridController"
+            style="-fx-background-color: #1a1a1a;">
+
+    <top>
+        <Label text="My Wallpapers"
+               style="-fx-font-size: 20px; -fx-text-fill: white; -fx-padding: 16px;"/>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #1a1a1a;">
+            <content>
+                <FlowPane fx:id="wallpaperGrid"
+                          hgap="12" vgap="12"
+                          style="-fx-padding: 16px; -fx-background-color: #1a1a1a;"/>
+            </content>
+        </ScrollPane>
+    </center>
+</BorderPane>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<VBox spacing="10" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="net.multyfora.exampleStuff.HelloController">
+    <Label text="Enter your name:"/>
+    <TextField fx:id="nameField"/>
+    <Button text="Say Hello" onAction="#handleButton"/>
+    <Label fx:id="outputLabel"/>
+</VBox>
