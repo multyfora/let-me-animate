@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static util.RunCommand.runCustomCommand;
+import static net.multyfora.util.RunCommand.runCustomCommand;
 
 public class LocalWallpapers {
 
@@ -21,6 +21,22 @@ public class LocalWallpapers {
 
     }
 
+    public static void listNames(){
+        getAll().forEach(Wallpaper::printNames);
+    }
+
+    public static void runById(String id){
+
+        List<Wallpaper> wallpapers = getAll();
+
+        for(Wallpaper wallpaper : wallpapers){
+            if(wallpaper.getId().equals(id)){
+                wallpaper.run();
+                break;
+            }
+        }
+
+    }
 
     public static List<Wallpaper> getAll(){
         List<String> wallpaperIDs = new java.util.ArrayList<>(runCustomCommand("ls -1 ~/.local/share/Steam/steamapps/workshop/content/431960").lines().toList());
@@ -38,7 +54,7 @@ public class LocalWallpapers {
                 Wallpaper wallpaper = new Wallpaper(title, wallpaperID, description, preview, tags.toArray(new String[0]));
                 wallpapers.add(wallpaper);
             } catch (JSONException e){
-                System.err.println(e);
+//                System.err.println(e);
             }
 
             catch (Exception e) {
