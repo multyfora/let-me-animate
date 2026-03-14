@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="net.multyfora.exampleStuff.workshop.WorkshopBrowserController"
+            style="-fx-background-color: #1a1a1a;">
+
+    <!-- TOP SEARCH BAR -->
+    <top>
+        <HBox spacing="10" style="-fx-background-color: #111111; -fx-padding: 12 15 12 15;" alignment="CENTER_LEFT">
+            <Label text="🛒 Steam Workshop"
+                   style="-fx-text-fill: #ffffff; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <HBox HBox.hgrow="ALWAYS"/>
+            <TextField fx:id="searchField"
+                       promptText="Search wallpapers..."
+                       style="-fx-background-color: #2a2a2a; -fx-text-fill: white; -fx-prompt-text-fill: #666; -fx-border-color: #444; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 6 10;"
+                       prefWidth="280"/>
+            <ComboBox fx:id="sortCombo"
+                      style="-fx-background-color: #2a2a2a; -fx-text-fill: white; -fx-border-color: #444; -fx-border-radius: 6; -fx-background-radius: 6;"
+                      prefWidth="140"/>
+            <Button fx:id="searchBtn" text="Search"
+                    style="-fx-background-color: #1565C0; -fx-text-fill: white; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 6 14; -fx-cursor: hand; -fx-font-size: 13px;"
+                    onAction="#onSearch"/>
+        </HBox>
+    </top>
+
+    <!-- CENTER: GRID + DETAIL PANEL -->
+    <center>
+        <HBox spacing="15" style="-fx-background-color: #1a1a1a;">
+            <padding>
+                <Insets top="15" bottom="15" left="15" right="15"/>
+            </padding>
+
+            <!-- WORKSHOP GRID -->
+            <VBox HBox.hgrow="ALWAYS" spacing="0"
+                  style="-fx-background-color: #222222; -fx-background-radius: 12;">
+                <StackPane VBox.vgrow="ALWAYS">
+                    <ScrollPane fx:id="gridScrollPane" fitToWidth="true"
+                                style="-fx-background: transparent; -fx-background-color: transparent;">
+                        <content>
+                            <FlowPane fx:id="workshopGrid" hgap="12" vgap="12" prefWrapLength="700">
+                                <padding>
+                                    <Insets top="15" right="15" bottom="15" left="15"/>
+                                </padding>
+                            </FlowPane>
+                        </content>
+                    </ScrollPane>
+                    <!-- LOADING OVERLAY -->
+                    <VBox fx:id="loadingOverlay" alignment="CENTER" spacing="12"
+                          style="-fx-background-color: rgba(34,34,34,0.92);"
+                          mouseTransparent="false">
+                        <ProgressIndicator prefWidth="48" prefHeight="48"/>
+                        <Label text="Fetching from Steam Workshop..."
+                               style="-fx-text-fill: #888; -fx-font-size: 13px;"/>
+                    </VBox>
+                    <!-- EMPTY STATE -->
+                    <VBox fx:id="emptyState" alignment="CENTER" spacing="10"
+                          visible="false" managed="false" mouseTransparent="true">
+                        <Label text="🔍" style="-fx-font-size: 48px;"/>
+                        <Label text="No results found."
+                               style="-fx-text-fill: #555; -fx-font-size: 14px;"/>
+                    </VBox>
+                </StackPane>
+                <!-- PAGINATION -->
+                <HBox alignment="CENTER" spacing="10"
+                      style="-fx-padding: 10; -fx-border-color: #333 transparent transparent transparent;">
+                    <Button fx:id="prevBtn" text="◀ Prev"
+                            style="-fx-background-color: #2a2a2a; -fx-text-fill: #ccc; -fx-border-radius: 5; -fx-background-radius: 5; -fx-cursor: hand;"
+                            onAction="#onPrev"/>
+                    <Label fx:id="pageLabel" text="Page 1"
+                           style="-fx-text-fill: #888; -fx-font-size: 12px;"/>
+                    <Button fx:id="nextBtn" text="Next ▶"
+                            style="-fx-background-color: #2a2a2a; -fx-text-fill: #ccc; -fx-border-radius: 5; -fx-background-radius: 5; -fx-cursor: hand;"
+                            onAction="#onNext"/>
+                </HBox>
+            </VBox>
+
+            <!-- DETAIL PANEL -->
+            <StackPane prefWidth="300"
+                       style="-fx-background-color: #202020; -fx-background-radius: 12;">
+                <ScrollPane fitToWidth="true"
+                            style="-fx-background: transparent; -fx-background-color: transparent;">
+                    <content>
+                        <VBox fx:id="detailBox" spacing="12">
+                            <padding>
+                                <Insets top="20" bottom="20" left="16" right="16"/>
+                            </padding>
+                            <Label text="Select a wallpaper to see details"
+                                   style="-fx-text-fill: #444; -fx-font-size: 13px; -fx-text-alignment: center;"
+                                   wrapText="true"/>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+            </StackPane>
+        </HBox>
+    </center>
+</BorderPane>

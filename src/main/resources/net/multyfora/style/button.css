@@ -1,0 +1,27 @@
+.root {
+    -fx-background-color: #202020;
+}
+
+.neu-btn {
+    -fx-background-color: #202020;
+    -fx-text-fill: #e5e5e5;
+
+    -fx-font-size: 14px;
+    -fx-padding: 10 14;
+
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+
+    -fx-border-color: rgba(255,255,255,0.05);
+    -fx-border-width: 1;
+
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.7), 8, 0, 4, 4);
+}
+
+.neu-btn:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 10, 0, 5, 5);
+}
+
+.neu-btn:pressed {
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.8), 6, 0, 3, 3);
+}

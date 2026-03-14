@@ -1,22 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="net.multyfora.exampleStuff.WallpaperGridController"
-            style="-fx-background-color: #1a1a1a;">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="net.multyfora.exampleStuff.WallpaperGridController">
 
-    <top>
-        <Label text="My Wallpapers"
-               style="-fx-font-size: 20px; -fx-text-fill: white; -fx-padding: 16px;"/>
-    </top>
+    <!-- LEFT SIDEBAR -->
+    <left>
+        <VBox prefWidth="80" spacing="8" style="-fx-background-color: #111111;">
+            <padding>
+                <Insets top="20" bottom="20"/>
+            </padding>
+            <Button fx:id="btnHome"
+                    maxWidth="Infinity" text="🏠"
+                    onAction="#showHome"
+                    style="-fx-background-color: #1a1a1a; -fx-text-fill: white; -fx-font-size: 18px; -fx-border-radius: 8; -fx-background-radius: 8; -fx-cursor: hand; -fx-padding: 10;"/>
+            <Button fx:id="btnWorkshop"
+                    maxWidth="Infinity" text=" "
+                    onAction="#showWorkshop"
+                    style="-fx-background-color: transparent; -fx-text-fill: #888; -fx-font-size: 18px; -fx-border-radius: 8; -fx-background-radius: 8; -fx-cursor: hand; -fx-padding: 10;"/>
+            <VBox VBox.vgrow="ALWAYS"/>
+            <Button fx:id="btnSettings"
+                    maxWidth="Infinity" text=" "
+                    onAction="#showSettings"
+                    style="-fx-background-color: transparent; -fx-text-fill: #888; -fx-font-size: 18px; -fx-border-radius: 8; -fx-background-radius: 8; -fx-cursor: hand; -fx-padding: 10;"/>
+            <Button maxWidth="Infinity" text=" "
+                    onAction="#onQuit"
+                    style="-fx-background-color: transparent; -fx-text-fill: #888; -fx-font-size: 18px; -fx-border-radius: 8; -fx-background-radius: 8; -fx-cursor: hand; -fx-padding: 10;"/>
+        </VBox>
+    </left>
 
     <center>
-        <ScrollPane fitToWidth="true" style="-fx-background-color: #1a1a1a;">
-            <content>
-                <FlowPane fx:id="wallpaperGrid"
-                          hgap="12" vgap="12"
-                          style="-fx-padding: 16px; -fx-background-color: #1a1a1a;"/>
-            </content>
-        </ScrollPane>
+        <BorderPane fx:id="pageContainer" style="-fx-background-color: #1a1a1a;">
+            <center>
+                <VBox fx:id="homePage" spacing="10" style="-fx-background-color: #1a1a1a;">
+                    <padding>
+                        <Insets top="15" bottom="15" left="15" right="15"/>
+                    </padding>
+                    <!-- TOP BAR -->
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Local Wallpapers"
+                               style="-fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold;"/>
+                        <HBox HBox.hgrow="ALWAYS"/>
+                        <Button fx:id="refreshBtn" text="🔄 Refresh"
+                                onAction="#refreshWallpapers"
+                                style="-fx-background-color: #2a2a2a; -fx-text-fill: #ccc; -fx-font-size: 12px;
+                                       -fx-border-color: #444; -fx-border-radius: 6; -fx-background-radius: 6;
+                                       -fx-cursor: hand; -fx-padding: 6 14;"/>
+                    </HBox>
+                    <!-- CONTENT ROW -->
+                    <HBox spacing="15" VBox.vgrow="ALWAYS">
+                        <StackPane HBox.hgrow="ALWAYS"
+                                   style="-fx-background-color: #222222; -fx-background-radius: 15;">
+                            <ScrollPane fitToWidth="true"
+                                        style="-fx-background: transparent; -fx-background-color: transparent;">
+                                <content>
+                                    <FlowPane fx:id="wallpaperGrid" hgap="12" vgap="12" prefWrapLength="800">
+                                        <padding>
+                                            <Insets top="15" right="15" bottom="15" left="15"/>
+                                        </padding>
+                                    </FlowPane>
+                                </content>
+                            </ScrollPane>
+                        </StackPane>
+                        <StackPane prefWidth="300"
+                                   style="-fx-background-color: #202020; -fx-background-radius: 15;">
+                            <ScrollPane fitToWidth="true"
+                                        style="-fx-background: transparent; -fx-background-color: transparent;">
+                                <content>
+                                    <VBox fx:id="propertiesBox" spacing="10">
+                                        <padding>
+                                            <Insets top="20" bottom="20" left="20" right="20"/>
+                                        </padding>
+                                    </VBox>
+                                </content>
+                            </ScrollPane>
+                        </StackPane>
+                    </HBox>
+                </VBox>
+            </center>
+        </BorderPane>
     </center>
+
 </BorderPane>

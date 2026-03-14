@@ -10,16 +10,25 @@ public class Wallpaper {
     private String id;
     private String description;
     private ImageIcon preview;
+    private String previewPath;
     private String[] tags;
     private Map<String, Property> properties = new LinkedHashMap<>();
 
-    public Wallpaper(String title, String id, String description, ImageIcon preview, String[] tags) {
+    public Wallpaper(String title, String id, String description, String previewPath, ImageIcon preview, String[] tags) {
         this.title = title;
         this.id = id;
         this.description = description;
         this.preview = preview;
+        this.previewPath = previewPath;
         this.tags = tags;
-        loadProperties();
+        // removed loadProperties() from here
+    }
+
+    public Map<String, Property> getProperties() {
+        if (properties.isEmpty()) {
+            loadProperties(); // only load when first accessed
+        }
+        return properties;
     }
 
     //TODO: this is really slow, need to optimize by caching results or only loading when requested. Maybe even load lazily when getProperties() is called, and have a separate method to force reload if needed.
@@ -27,6 +36,7 @@ public class Wallpaper {
         String output = RunCommand.listProperties(id); // assumes it now returns a String
         properties = parseProperties(output);
     }
+
 
     private Map<String, Property> parseProperties(String raw) {
         Map<String, Property> result = new LinkedHashMap<>();
@@ -65,31 +75,32 @@ public class Wallpaper {
                 while (i < lines.length && (lines[i].startsWith("\t") || lines[i].startsWith("    "))) {
                     String pline = lines[i].trim();
 
-                    if (pline.startsWith("Description:")) {
-                        desc = pline.substring("Description:".length()).trim();
+                    if (pline.startsWith("Text:")) {
+                        desc = pline.substring("Text:".length()).trim();
                     } else if (pline.startsWith("Value:")) {
                         String val = pline.substring("Value:".length()).trim();
-                        if (type == Property.Type.BOOLEAN) {
+                        if (type == Property.Type.COLOR) {
+                            String[] parts1 = val.split(",");
+                            if (parts1.length >= 3) {
+                                r = Double.parseDouble(parts1[0].trim());
+                                g = Double.parseDouble(parts1[1].trim());
+                                b = Double.parseDouble(parts1[2].trim());
+                                a = parts1.length >= 4 ? Double.parseDouble(parts1[3].trim()) : 1.0;
+                            }
+                        } else if (type == Property.Type.BOOLEAN) {
                             value = Double.parseDouble(val);
                         } else if (type == Property.Type.SLIDER) {
                             value = Double.parseDouble(val);
                         } else if (type == Property.Type.COMBOLIST) {
                             comboValue = val;
                         }
-                    } else if (pline.startsWith("Minimum value:")) {
-                        min = Double.parseDouble(pline.substring("Minimum value:".length()).trim());
-                    } else if (pline.startsWith("Maximum value:")) {
-                        max = Double.parseDouble(pline.substring("Maximum value:".length()).trim());
+                    } else if (pline.startsWith("Min:")) {
+                        min = Double.parseDouble(pline.substring("Min:".length()).trim());
+                    } else if (pline.startsWith("Max:")) {
+                        max = Double.parseDouble(pline.substring("Max:".length()).trim());
                     } else if (pline.startsWith("Step:")) {
                         step = Double.parseDouble(pline.substring("Step:".length()).trim());
-                    } else if (pline.startsWith("R:")) {
-                        // "R: 0.14902 G: 0.23137 B: 0.4 A: 1"
-                        r = parseColorComponent(pline, "R:");
-                        g = parseColorComponent(pline, "G:");
-                        b = parseColorComponent(pline, "B:");
-                        a = parseColorComponent(pline, "A:");
                     } else if (pline.contains(" -> ")) {
-                        // combolist option: "label -> rawValue"  (indented further, still caught here)
                         String[] opt = pline.split(" -> ", 2);
                         comboOptions.add(new String[]{opt[0].trim(), opt[1].trim()});
                     }
@@ -98,7 +109,10 @@ public class Wallpaper {
 
                 Property prop = new Property(key, type, desc);
                 switch (type) {
-                    case SLIDER -> prop.setSliderValues(value, min, max, step);
+                    case SLIDER -> {
+                        prop.setSliderValues(value, min, max, step);
+                        System.out.println("Slider: " + key + " min=" + min + " max=" + max + " val=" + value + " id: " + id);
+                    }
                     case BOOLEAN -> prop.setBoolValue(value == 1);
                     case COMBOLIST -> {
                         prop.setComboValue(comboValue);
@@ -124,8 +138,6 @@ public class Wallpaper {
 
     // Property access
 
-    public Map<String, Property> getProperties() { return properties; }
-
     public Property getProperty(String key) { return properties.get(key); }
 
     // Existing methods
@@ -140,6 +152,7 @@ public class Wallpaper {
 
     public String getTitle() { return title; }
     public String getId() { return id; }
+    public String getPreviewPath() { return previewPath; }
     public String getDescription() { return description; }
     public ImageIcon getPreview() { return preview; }
     public String[] getTags() { return tags; }
@@ -156,6 +169,6 @@ public class Wallpaper {
     }
 
     public void run() {
-        RunCommand.runWallpaperCommand(id);
+        RunCommand.runWallpaperCommand(id, properties);
     }
 }

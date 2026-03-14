@@ -12,6 +12,10 @@ public class HelloFX extends Application {
         Scene scene = new Scene(loader.load(), 900, 600);
         stage.setTitle("Let Me Animate");
         stage.setScene(scene);
+        scene.getStylesheets().add(getClass().getResource("/net/multyfora/style/scrollpane.css").toExternalForm());
+        scene.getStylesheets().add(
+                getClass().getResource("/net/multyfora/style/button.css").toExternalForm()
+        );
         stage.show();
     }
     public static void main(String[] args){

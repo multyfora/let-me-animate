@@ -50,8 +50,12 @@ public class LocalWallpapers {
                 List<String> tags = new LocalWallpapers().getTagsFromProjectJson(jsonFilePath);
                 String imagePath = new LocalWallpapers().getPreviewNameFromProjectJson(jsonFilePath);
                 ImageIcon preview = new ImageIcon(Files.readAllBytes(Path.of(System.getProperty("user.home"), ".local", "share", "Steam", "steamapps", "workshop", "content", "431960", wallpaperID, imagePath)));
+                String realImagePath = new LocalWallpapers().getPreviewNameFromProjectJson(jsonFilePath);
+                String fullimagePath = Path.of(System.getProperty("user.home"),
+                        ".local", "share", "Steam", "steamapps", "workshop", "content",
+                        "431960", wallpaperID, realImagePath).toString();
 
-                Wallpaper wallpaper = new Wallpaper(title, wallpaperID, description, preview, tags.toArray(new String[0]));
+                Wallpaper wallpaper = new Wallpaper(title, wallpaperID, description,fullimagePath, preview, tags.toArray(new String[0]));
                 wallpapers.add(wallpaper);
             } catch (JSONException e){
 //                System.err.println(e);

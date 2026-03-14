@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="net.multyfora.exampleStuff.SettingsController"
+            style="-fx-background-color: #1a1a1a;">
+    <center>
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background: transparent; -fx-background-color: transparent;">
+            <content>
+                <VBox spacing="0" style="-fx-background-color: #1a1a1a;">
+                    <padding>
+                        <Insets top="30" bottom="30" left="40" right="40"/>
+                    </padding>
+
+                    <!-- Header -->
+                    <Label text="Settings"
+                           style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                    <Label text="Configure default launch options for linux-wallpaperengine"
+                           style="-fx-font-size: 12px; -fx-text-fill: #666; -fx-padding: 4 0 24 0;"/>
+
+                    <!--  DISPLAY  -->
+                    <Label text="DISPLAY"
+                           style="-fx-font-size: 10px; -fx-text-fill: #555; -fx-font-weight: bold; -fx-padding: 0 0 8 0; -fx-letter-spacing: 1px;"/>
+
+                    <!-- Scaling -->
+                    <VBox spacing="6" style="-fx-background-color: #222; -fx-background-radius: 10; -fx-padding: 16;">
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <VBox HBox.hgrow="ALWAYS" spacing="3">
+                                <Label text="Scaling Mode" style="-fx-text-fill: #eee; -fx-font-size: 13px;"/>
+                                <Label text="--scaling  •  How the wallpaper is scaled to fit your screen"
+                                       style="-fx-text-fill: #555; -fx-font-size: 11px;"/>
+                            </VBox>
+                            <ComboBox fx:id="scalingCombo" prefWidth="130"
+                                      style="-fx-background-color: #2e2e2e; -fx-text-fill: white; -fx-border-color: #3a3a3a; -fx-border-radius: 6; -fx-background-radius: 6;"/>
+                        </HBox>
+                    </VBox>
+
+                    <Region prefHeight="8"/>
+
+                    <!-- Screen -->
+                    <VBox spacing="6" style="-fx-background-color: #222; -fx-background-radius: 10; -fx-padding: 16;">
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <VBox HBox.hgrow="ALWAYS" spacing="3">
+                                <Label text="Screen" style="-fx-text-fill: #eee; -fx-font-size: 13px;"/>
+                                <Label text="--screen-root  •  Target display (e.g. HDMI-A-1, DP-1)"
+                                       style="-fx-text-fill: #555; -fx-font-size: 11px;"/>
+                            </VBox>
+                            <TextField fx:id="screenField" prefWidth="150"
+                                       promptText="e.g. HDMI-A-1"
+                                       style="-fx-background-color: #2e2e2e; -fx-text-fill: white; -fx-prompt-text-fill: #444; -fx-border-color: #3a3a3a; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 6 10;"/>
+                        </HBox>
+                    </VBox>
+
+                    <Region prefHeight="8"/>
+
+                    <!-- FPS -->
+                    <VBox spacing="6" style="-fx-background-color: #222; -fx-background-radius: 10; -fx-padding: 16;">
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <VBox HBox.hgrow="ALWAYS" spacing="3">
+                                <Label text="Frame Rate Limit" style="-fx-text-fill: #eee; -fx-font-size: 13px;"/>
+                                <Label text="--fps  •  0 = unlimited"
+                                       style="-fx-text-fill: #555; -fx-font-size: 11px;"/>
+                            </VBox>
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Slider fx:id="fpsSlider" min="0" max="240" blockIncrement="1"
+                                        prefWidth="160" showTickLabels="false"
+                                        style="-fx-control-inner-background: #333;"/>
+                                <Label fx:id="fpsLabel" prefWidth="50"
+                                       style="-fx-text-fill: #aaa; -fx-font-size: 12px;"/>
+                            </HBox>
+                        </HBox>
+                    </VBox>
+
+                    <Region prefHeight="24"/>
+
+                    <!--  AUDIO  -->
+                    <Label text="AUDIO"
+                           style="-fx-font-size: 10px; -fx-text-fill: #555; -fx-font-weight: bold; -fx-padding: 0 0 8 0;"/>
+
+                    <!-- Silent -->
+                    <VBox style="-fx-background-color: #222; -fx-background-radius: 10; -fx-padding: 16;">
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <VBox HBox.hgrow="ALWAYS" spacing="3">
+                                <Label text="Mute Audio" style="-fx-text-fill: #eee; -fx-font-size: 13px;"/>
+                                <Label text="--silent  •  Disable all background audio"
+                                       style="-fx-text-fill: #555; -fx-font-size: 11px;"/>
+                            </VBox>
+                            <CheckBox fx:id="silentCheck" style="-fx-text-fill: #ccc;"/>
+                        </HBox>
+                    </VBox>
+
+                    <Region prefHeight="8"/>
+
+                    <!-- No audio processing -->
+                    <VBox style="-fx-background-color: #222; -fx-background-radius: 10; -fx-padding: 16;">
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <VBox HBox.hgrow="ALWAYS" spacing="3">
+                                <Label text="Disable Audio Reactive Features" style="-fx-text-fill: #eee; -fx-font-size: 13px;"/>
+                                <Label text="--no-audio-processing  •  Stops audio analysis, saves CPU"
+                                       style="-fx-text-fill: #555; -fx-font-size: 11px;"/>
+                            </VBox>
+                            <CheckBox fx:id="noAudioCheck" style="-fx-text-fill: #ccc;"/>
+                        </HBox>
+                    </VBox>
+
+                    <Region prefHeight="8"/>
+
+                    <!-- Volume -->
+                    <VBox fx:id="volumeRow" spacing="6" style="-fx-background-color: #222; -fx-background-radius: 10; -fx-padding: 16;">
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <VBox HBox.hgrow="ALWAYS" spacing="3">
+                                <Label text="Volume" style="-fx-text-fill: #eee; -fx-font-size: 13px;"/>
+                                <Label text="--volume  •  Background audio volume (0–100)"
+                                       style="-fx-text-fill: #555; -fx-font-size: 11px;"/>
+                            </VBox>
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Slider fx:id="volumeSlider" min="0" max="100" blockIncrement="1"
+                                        prefWidth="160" showTickLabels="false"
+                                        style="-fx-control-inner-background: #333;"/>
+                                <Label fx:id="volumeLabel" prefWidth="36"
+                                       style="-fx-text-fill: #aaa; -fx-font-size: 12px;"/>
+                            </HBox>
+                        </HBox>
+                    </VBox>
+
+                    <Region prefHeight="24"/>
+
+                    <!--  EFFECTS  -->
+                    <Label text="EFFECTS"
+                           style="-fx-font-size: 10px; -fx-text-fill: #555; -fx-font-weight: bold; -fx-padding: 0 0 8 0;"/>
+
+                    <!-- Parallax -->
+                    <VBox style="-fx-background-color: #222; -fx-background-radius: 10; -fx-padding: 16;">
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <VBox HBox.hgrow="ALWAYS" spacing="3">
+                                <Label text="Disable Parallax" style="-fx-text-fill: #eee; -fx-font-size: 13px;"/>
+                                <Label text="--disable-parallax  •  Turn off parallax on supported wallpapers"
+                                       style="-fx-text-fill: #555; -fx-font-size: 11px;"/>
+                            </VBox>
+                            <CheckBox fx:id="parallaxCheck" style="-fx-text-fill: #ccc;"/>
+                        </HBox>
+                    </VBox>
+
+                    <Region prefHeight="28"/>
+
+                    <!-- Command preview -->
+                    <Label text="COMMAND PREVIEW"
+                           style="-fx-font-size: 10px; -fx-text-fill: #555; -fx-font-weight: bold; -fx-padding: 0 0 8 0;"/>
+                    <VBox style="-fx-background-color: #111; -fx-background-radius: 8; -fx-padding: 14;">
+                        <Label text="linux-wallpaperengine" style="-fx-text-fill: #4CAF50; -fx-font-size: 11px; -fx-font-family: monospace;"/>
+                        <Label fx:id="commandPreview" wrapText="true"
+                               style="-fx-text-fill: #888; -fx-font-size: 11px; -fx-font-family: monospace; -fx-padding: 2 0 0 0;"/>
+                    </VBox>
+
+                    <Region prefHeight="28"/>
+
+                    <!-- Save button -->
+                    <HBox>
+                        <Button fx:id="saveBtn" text="Save Settings"
+                                onAction="#saveSettings"
+                                style="-fx-background-color: #1565C0; -fx-text-fill: white; -fx-font-size: 13px;
+                                       -fx-padding: 10 28; -fx-background-radius: 8; -fx-cursor: hand;"/>
+                        <Label fx:id="savedLabel" text="✓ Saved"
+                               style="-fx-text-fill: #4CAF50; -fx-font-size: 12px; -fx-padding: 0 0 0 14;"
+                               visible="false" managed="false"/>
+                    </HBox>
+
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+</BorderPane>

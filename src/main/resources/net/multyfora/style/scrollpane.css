@@ -1,0 +1,47 @@
+/* 1. Move the Vertical Scrollbar to the left */
+.scroll-pane .scroll-bar:vertical {
+    /* Adjust '10px' to however far you want it from the edge */
+    -fx-padding: 10px 10px 10px 0; /* top right bottom left */
+    -fx-background-color: transparent;
+}
+
+/* 2. Move the Horizontal Scrollbar up (if needed) */
+.scroll-pane .scroll-bar:horizontal {
+    -fx-padding: 0 0 10px 0;
+    -fx-background-color: transparent;
+}
+
+/* --- Your existing styles below --- */
+
+.scroll-pane .scroll-bar .increment-button,
+.scroll-pane .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-shape: "";
+    -fx-min-width: 0;
+    -fx-min-height: 0;
+    -fx-pref-width: 0;
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+.scroll-pane .scroll-bar .track {
+    -fx-background-color: #222;
+    -fx-background-radius: 6;
+    /* Ensure the track doesn't have extra insets fighting your padding */
+    -fx-background-insets: 0;
+}
+
+.scroll-pane .scroll-bar .thumb {
+    -fx-background-color: #555;
+    -fx-background-radius: 6;
+    -fx-background-insets: 0; /* Changed to 0 to keep it centered in your new width */
+}
+
+.scroll-pane .scroll-bar .thumb:hover {
+    -fx-background-color: #777;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-pref-width: 18px; /* Increased to account for the 10px padding + 8px bar */
+}
